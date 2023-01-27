@@ -1,5 +1,3 @@
-// web/app/login/login.go
-
 package login
 
 import (
