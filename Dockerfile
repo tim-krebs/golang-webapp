@@ -1,7 +1,7 @@
 FROM golang:1.19.3-alpine3.17
 
 # Define current working directory
-WORKDIR /01-Login
+WORKDIR /golang-webapp
 
 # Download modules to local cache so we can skip re-
 # downloading on consecutive docker build commands
@@ -12,9 +12,9 @@ RUN go mod download
 # Add sources
 COPY . .
 
-RUN go build -o out/auth0-go-web-app .
+RUN go build -o out/golang-webapp .
 
 # Expose port 3000 for our web app binary
 EXPOSE 3000
 
-CMD ["github.com/tim-krebs/golang-webapp"]
+CMD ["/golang-webapp/out/golang-webapp"]
