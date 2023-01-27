@@ -2,7 +2,9 @@
 package main
 
 import (
+	"context"
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -25,23 +27,23 @@ func main() {
 	if err := godotenv.Load(); err != nil {
 		log.Fatalf("Failed to load the env vars: %v", err)
 	}
-	//// Build connection string
-	//connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
-	//	server, user, password, port, database)
-	//
-	//var err error
+	// Build connection string
+	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
+		server, user, password, port, database)
 
-	//// Create connection pool
-	//db, err = sql.Open("sqlserver", connString)
-	//if err != nil {
-	//	log.Fatal("Error creating connection pool: ", err.Error())
-	//}
-	//ctx := context.Background()
-	//err = db.PingContext(ctx)
-	//if err != nil {
-	//	log.Fatal(err.Error())
-	//}
-	//fmt.Printf("Connected!\n")
+	var err error
+
+	// Create connection pool
+	db, err = sql.Open("sqlserver", connString)
+	if err != nil {
+		log.Fatal("Error creating connection pool: ", err.Error())
+	}
+	ctx := context.Background()
+	err = db.PingContext(ctx)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	fmt.Printf("Connected!\n")
 
 	// Initialize the authenticator
 	auth, err := authenticator.New()
