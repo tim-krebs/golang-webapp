@@ -19,7 +19,7 @@ var db *sql.DB
 var server = "auth-0-db.database.windows.net"
 var port = 1433
 var user = "timkrebs"
-var password = "Y+faZ5KZ3wVRcpdb"
+var password = ""
 var database = "auth-0-db"
 
 func main() {
