@@ -8,6 +8,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+
 	"github.com/tim-krebs/golang-webapp/platform/authenticator"
 	"github.com/tim-krebs/golang-webapp/platform/middleware"
 	"github.com/tim-krebs/golang-webapp/web/app/callback"
