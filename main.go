@@ -2,19 +2,23 @@
 package main
 
 import (
-	"context"
-	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/joho/godotenv"
 	_ "github.com/microsoft/go-mssqldb"
 
 	"github.com/tim-krebs/golang-webapp/platform/authenticator"
 	"github.com/tim-krebs/golang-webapp/platform/router"
-	"github.com/tim-krebs/golang-webapp/backend/UserService/config"
 )
+
+var server = os.Getenv("SERVER")
+var port = os.Getenv("PORT")
+var user = os.Getenv("USER")
+var password = os.Getenv("PASSWORD")
+var database = os.Getenv("DATABASE")
 
 func main() {
 	// Load .env
@@ -25,7 +29,7 @@ func main() {
 	var err error
 
 	// Create connection pool
-	GetConnection()
+
 	fmt.Printf("Connected!\n")
 
 	// Initialize the authenticator
@@ -41,8 +45,4 @@ func main() {
 	if err := http.ListenAndServe("0.0.0.0:3000", rtr); err != nil {
 		log.Fatalf("There was an error with the http server: %v", err)
 	}
-}
-
-func GetConnection() {
-	panic("unimplemented")
 }
