@@ -6,24 +6,18 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"strconv"
 
 	_ "github.com/microsoft/go-mssqldb"
 )
 
 var db *sql.DB
 
-var server = "auth-0-db.database.windows.net"
-var port = 1433
-var user = "timkrebs"
-var password = ""
-var database = "auth-0-db"
-
-func GetConnection() {
+func GetConnection(server string, user string, password string, port string, database string) {
 	// Build connection string
-	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
-		server, user, password, port, database)
-
-	var err error
+	var dbPort int
+	dbPort, err := strconv.Atoi(port)
+	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;", server, user, password, dbPort, database)
 
 	// Create connection pool
 	db, err = sql.Open("sqlserver", connString)
@@ -36,6 +30,9 @@ func GetConnection() {
 		log.Fatal(err.Error())
 	}
 	fmt.Printf("Connected!\n")
+}
+
+func CreateDB() {
 
 	// Create employee
 	createID, err := CreateEmployee("Jake", "United States")
@@ -43,21 +40,27 @@ func GetConnection() {
 		log.Fatal("Error creating Employee: ", err.Error())
 	}
 	fmt.Printf("Inserted ID: %d successfully.\n", createID)
+}
 
+func ReadDB() {
 	// Read employees
 	count, err := ReadEmployees()
 	if err != nil {
 		log.Fatal("Error reading Employees: ", err.Error())
 	}
 	fmt.Printf("Read %d row(s) successfully.\n", count)
+}
 
+func UpdateDB() {
 	// Update from database
 	updatedRows, err := UpdateEmployee("Jake", "Poland")
 	if err != nil {
 		log.Fatal("Error updating Employee: ", err.Error())
 	}
 	fmt.Printf("Updated %d row(s) successfully.\n", updatedRows)
+}
 
+func DeleteDB() {
 	// Delete from database
 	deletedRows, err := DeleteEmployee("Jake")
 	if err != nil {
