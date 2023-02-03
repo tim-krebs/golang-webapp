@@ -56,3 +56,29 @@ type UpdateUserRequest struct {
 	Subject    string    `json:"subject"`
 	Country    string    `json:"country"`
 }
+
+
+func Create(){
+	
+}
+
+func Find(){
+
+}
+
+func FindById(){
+
+}
+
+func UpdateUser(){
+
+}
+
+func DeleteUser(){
+	
+}
+
+func CheckIfPasswordMatch(){
+
+}
+
