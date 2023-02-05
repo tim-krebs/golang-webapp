@@ -1,6 +1,7 @@
 package data
 
 import (
+	"log"
 	"time"
 )
 
@@ -57,28 +58,48 @@ type UpdateUserRequest struct {
 	Country    string    `json:"country"`
 }
 
+func Create(UserRequest *UserRequest) string {
 
-func Create(){
-	
+	// Setup db connection
+	//defer cancel()
+	//defer client.Disconnect(ctx)
+
+	//UserRequest.ID = primitive.NewObjectID()
+
+	resp, err := client.Database("test").Collection("users").InsertOne(ctx, UserRequest.toUser())
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	//TODO hier noch mal schauen
+	log.Println(resp.InsertedID)
+
+	if resp.InsertedID == nil {
+		log.Println("User was not created")
+		return ""
+	}
+
+	log.Println("User Created")
+	return UserRequest.ID.hex()
 }
 
-func Find(){
+func Find() {
 
 }
 
-func FindById(){
+func FindById() {
 
 }
 
-func UpdateUser(){
+func UpdateUser() {
 
 }
 
-func DeleteUser(){
-	
-}
-
-func CheckIfPasswordMatch(){
+func DeleteUser() {
 
 }
 
+func CheckIfPasswordMatch() {
+
+}
