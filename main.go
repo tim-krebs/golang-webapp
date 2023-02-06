@@ -10,9 +10,9 @@ import (
 	"github.com/joho/godotenv"
 	_ "github.com/microsoft/go-mssqldb"
 
+	"github.com/tim-Krebs/golang-webapp/backend/UserService/config"
 	"github.com/tim-krebs/golang-webapp/platform/authenticator"
 	"github.com/tim-krebs/golang-webapp/platform/router"
-	"github.com/tim-Krebs/golang-webapp/backend/UserService/config"
 )
 
 var server = os.Getenv("SERVER")
@@ -30,7 +30,7 @@ func main() {
 	var err error
 
 	// Create connection pool
-	GetConnection(server, user, password, port, database)
+	config.GetConnection(server, user, password, port, database)
 	fmt.Printf("Connected!\n")
 
 	// Initialize the authenticator
